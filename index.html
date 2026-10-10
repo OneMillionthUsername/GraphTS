@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>GraphLib</title>
+</head>
+<body>
+  <div id="out"></div>
+  <script src="logic.js"></script>
+  <script>
+    const V = [
+      { id: 0, label: "", degree: 0, pos: { x: 0, y: 0 } },
+      { id: 1, label: "", degree: 0, pos: { x: 0, y: 0 } },
+      { id: 2, label: "", degree: 0, pos: { x: 0, y: 0 } },
+      { id: 3, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    ];
+    const E = [
+      { source: 0, target: 1, degree: 0, label: "" },
+      { source: 1, target: 2, degree: 0, label: "" },
+      { source: 2, target: 3, degree: 0, label: "" },
+      { source: 3, target: 0, degree: 0, label: "" },
+      { source: 0, target: 2, degree: 0, label: "" },
+    ];
+    document.getElementById("out").innerHTML = renderGraph(V, E);
+  </script>
+</body>
+</html>
