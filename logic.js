@@ -3,18 +3,21 @@
 function createVertexNames(v) {
     return `v${v}`;
 }
-function renderGraph(V, E, size = 400) {
+function renderGraph(V, E, size = 1400) {
     const center = size / 2;
     const Radius = size * 0.33;
     const radiusVertex = 18;
+    const streuung = 25; // max. zufälliger Versatz in px, horizontal & vertikal
     //create the vertices
     //----------------------------
     // fill the vertices set with data
     V.forEach((v, i) => {
-        const winkel = (2 * Math.PI * i) / V.length / 2;
+        const winkel = (2 * Math.PI * i) / V.length;
+        const jitterX = (Math.random() - 0.5) * 2 * streuung;
+        const jitterY = (Math.random() - 0.5) * 2 * streuung;
         v.pos = {
-            x: center + Radius * Math.cos(winkel),
-            y: center + Radius * Math.sin(winkel)
+            x: center + Radius * Math.cos(winkel) + jitterX,
+            y: center + Radius * Math.sin(winkel) + jitterY
         };
         v.label = createVertexNames(i);
     });
@@ -24,7 +27,7 @@ function renderGraph(V, E, size = 400) {
     for (const edge of E) {
         const source = edge.source;
         const target = edge.target;
-        deg.set(source, deg.get(source) + 1);
+        deg.set(source, deg.get(source) + Math.random());
         deg.set(target, deg.get(target) + 1);
     }
     const edgesSvg = E.map(edge => {
