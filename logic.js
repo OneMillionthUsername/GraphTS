@@ -3,7 +3,7 @@
 function createVertexNames(v) {
     return `v${v}`;
 }
-function renderGraph(V, E, size = 1400) {
+function renderGraph(V, E, size = 1000) {
     const center = size / 2;
     const Radius = size * 0.33;
     const radiusVertex = 18;

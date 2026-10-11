@@ -27,7 +27,7 @@ function createVertexNames(v: number): string {
   return `v${v}`;
 }
 
-function renderGraph(V: Vertex[], E: Edge[], size = 1400): string {
+function renderGraph(V: Vertex[], E: Edge[], size = 1000): string {
   const center = size / 2;
   const Radius = size * 0.33;
   const radiusVertex = 18;
