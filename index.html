@@ -6,8 +6,9 @@
 </head>
 <body>
   <div id="out"></div>
-  <script src="logic.js"></script>
-  <script>
+  <script type="module">
+    import { renderGraph } from "./dist/logic.js";
+
     const V = [
       { id: 0, label: "", degree: 0, pos: { x: 0, y: 0 } },
       { id: 1, label: "", degree: 0, pos: { x: 0, y: 0 } },

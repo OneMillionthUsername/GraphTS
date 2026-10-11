@@ -1,3 +1,5 @@
+import { getVertexSize } from './coord_system.js';
+
 type Position = {
   x: number;
   y: number;
@@ -27,7 +29,7 @@ function createVertexNames(v: number): string {
   return `v${v}`;
 }
 
-function renderGraph(V: Vertex[], E: Edge[], size = 1000): string {
+export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
   const center = size / 2;
   const Radius = size * 0.33;
   const radiusVertex = 18;
@@ -41,8 +43,8 @@ function renderGraph(V: Vertex[], E: Edge[], size = 1000): string {
     const jitterX = (Math.random() - 0.5) * 2 * streuung;
     const jitterY = (Math.random() - 0.5) * 2 * streuung;
     v.pos = {
-      x: center + Radius * Math.cos(winkel) + jitterX,
-      y: center + Radius * Math.sin(winkel) + jitterY
+      x: center + Math.random() * getVertexSize(i) * Math.cos(winkel) + jitterX,
+      y: center + Math.random() * getVertexSize(i) * Math.sin(winkel) + jitterY
     }
     v.label = createVertexNames(i);
   });
