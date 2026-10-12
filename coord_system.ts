@@ -6,6 +6,25 @@ const vertexSizeMin = 80;
 const vertexSizeMax = 1600;
 //const vertexSizeDefault = 100;
 
+type Grid = {
+    rows: number,
+    cols: number,
+    label: string
+}
+
+export function createGrid (vertexCount: number, size: number) : Grid {
+    // quadratische Zelle
+    // const cell = createCellSize(vertexCount, size);
+    const rows = Math.max(1, Math.ceil(Math.sqrt(vertexCount)));
+    const cols = Math.max(1, Math.ceil(vertexCount / rows));
+
+    return {
+        rows: rows,
+        cols: cols,
+        label: ""
+    }
+}
+
 export function getVertexSize(size: number): number {
     if (size + 80 <= vertexSizeMin) {
         return vertexSizeMin;

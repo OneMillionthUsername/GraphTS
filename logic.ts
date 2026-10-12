@@ -1,4 +1,4 @@
-import { getVertexSize } from './coord_system.js';
+import { getVertexSize, createGrid } from './coord_system.js';
 
 type Position = {
   x: number;
@@ -30,21 +30,23 @@ function createVertexNames(v: number): string {
 }
 
 export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
-  const center = size / 2;
-  const Radius = size * 0.33;
-  const radiusVertex = 18;
+  const radiusVertex = 50;
   const streuung = 25; // max. zufälliger Versatz in px, horizontal & vertikal
-
+  const grid = createGrid(V.length, size);
+  const cellWidth = Math.floor(size/grid.cols);
+  const cellHeight = Math.floor(size/grid.rows);
   //create the vertices
   //----------------------------
   // fill the vertices set with data
   V.forEach((v, i) => {
-    const winkel = (2 * Math.PI * i) / V.length;
+    const col = i % grid.cols;
+    const row = Math.floor(i / grid.cols);
+    //const winkel = (2 * Math.PI * i) / V.length;
     const jitterX = (Math.random() - 0.5) * 2 * streuung;
     const jitterY = (Math.random() - 0.5) * 2 * streuung;
     v.pos = {
-      x: center + Math.random() * getVertexSize(i) * Math.cos(winkel) + jitterX,
-      y: center + Math.random() * getVertexSize(i) * Math.sin(winkel) + jitterY
+      x: col * cellWidth + (cellWidth / 2) + jitterX,
+      y: row * cellHeight + (cellHeight / 2) + jitterY
     }
     v.label = createVertexNames(i);
   });
