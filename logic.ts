@@ -1,5 +1,8 @@
 import { getVertexSize, createGrid } from './coord_system.js';
 
+const font_size_degree = 20;
+const font_size_label = 40;
+
 type Position = {
   x: number;
   y: number;
@@ -75,8 +78,8 @@ export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
     const fill = winkel > 2 ? "#e6b0aa" : "#fff"; 
     return `<g>
             <circle cx="${position.x}" cy="${position.y}" r="${radiusVertex}" fill="${fill}" stroke="#333" stroke-width="2" />
-            <text x="${position.x}" y="${position.y}" text-anchor="middle" dominant-baseline="central" font-size="16">${v.label}</text>
-            <text x="${position.x}" y="${position.y + radiusVertex + 14}" text-anchor="middle" font-size="12" fill="#666">d=${winkel}</text>
+            <text x="${position.x}" y="${position.y}" text-anchor="middle" dominant-baseline="central" font-size="${font_size_label}">${v.label}</text>
+            <text x="${position.x}" y="${position.y + radiusVertex + 14}" text-anchor="middle" font-size="${font_size_degree}" fill="#666">d=${v.degree}</text>
             </g>`;
   }).join("\n");
 
