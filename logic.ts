@@ -1,4 +1,5 @@
 import { getVertexSize, createGrid } from './coord_system.js';
+import { options } from './input.js';
 
 const font_size_degree = 20;
 const font_size_label = 40;
@@ -42,7 +43,11 @@ function getDegree(edges: Edge[], id: number): number {
 }
 
 export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
-  const radiusVertex = 50;
+  const optionsContainer = document.getElementById("options");
+  if (optionsContainer) {
+    options(optionsContainer);
+  }
+  const radiusVertex = 30;
   const streuung = 125; // max. zufälliger Versatz in px, horizontal & vertikal
   const grid = createGrid(V.length, size);
   const cellWidth = Math.floor(size/grid.cols);

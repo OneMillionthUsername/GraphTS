@@ -6,8 +6,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="options"></div>
   <div id="out"></div>
   <script type="module">
+    import { options } from "./dist/input.js";
     import { renderGraph } from "./dist/logic.js";
 
     const V = [
@@ -55,6 +57,8 @@
       { source: 1, target: 5, degree: 0, label: "" },
       { source: 2, target: 6, degree: 0, label: "" },
     ];
+
+    //options(document.getElementById("options"));
     document.getElementById("out").innerHTML = renderGraph(V, E);
   </script>
 </body>
