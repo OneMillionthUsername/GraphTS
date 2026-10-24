@@ -1,5 +1,5 @@
 import { getVertexSize, createGrid } from './coord_system.js';
-import { options } from './input.js';
+import { drawInputs } from './input.js';
 
 const font_size_degree = 20;
 const font_size_label = 40;
@@ -41,11 +41,19 @@ function getDegree(edges: Edge[], id: number): number {
   }
   return count;
 }
+// TODO: Funktion zum Vergleichen von Knoten schreiben
+
+function createVertices(count: number): string {
+  // hier werden die verschiedenen Knoteneinstellungen geschrieben. 
+  // Jeder Knoten hat seinen Grad und die Eigenschaft, ob er einen zweiten Knoten gleicht
+  // mögliche weitere Eigenschaften?
+  return "";
+}
 
 export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
-  const optionsContainer = document.getElementById("options");
-  if (optionsContainer) {
-    options(optionsContainer);
+  const inputContainer = document.getElementById("options");
+  if (inputContainer) {
+    drawInputs(inputContainer);
   }
   const radiusVertex = 30;
   const streuung = 125; // max. zufälliger Versatz in px, horizontal & vertikal
