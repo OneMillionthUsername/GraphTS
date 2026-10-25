@@ -10,6 +10,6 @@
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist",
         "sourceMap": true,
-        "checkJs": true,
+        "checkJs": true
     }
 }

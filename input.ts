@@ -49,8 +49,8 @@ export function drawInputs(container: HTMLElement) {
     // ---------------------------------------------------------
     
     input_buttonVertex.addEventListener("click", () => {
-        const fields = container.querySelectorAll('input[name="vertex_degree"]');
-        const fieldsCount = container.querySelectorAll('input[name="vertex_degree"]').length;
+        const fields = container.querySelectorAll('.vertex-row');
+        const fieldsCount = container.querySelectorAll('.vertex-row').length;
         
         // TODO: nach dem Löschen, bleiben die Labels stehen.
         if(fieldsCount > 0) {
@@ -72,6 +72,7 @@ function createVertexInputsForDegree(count: number, container: HTMLElement) {
         label_input_vertexCount.htmlFor = input_vertexCount.id;
         label_input_vertexCount.textContent = "Knoten Nr: " + i;
         const row = document.createElement("div");
+        row.className = "vertex-row";
         row.append(input_vertexCount, label_input_vertexCount);
         container.append(row);
     }
