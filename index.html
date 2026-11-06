@@ -8,58 +8,59 @@
 <body>
   <div id="options"></div>
   <div id="out"></div>
-  <script type="module">
-    import { drawInputs } from "./dist/input.js";
-    import { renderGraph } from "./dist/logic.js";
+  <script type="module" src="./dist/main.js">
+    // import { drawInputs } from "./dist/input.js";
+    // import { renderGraph } from "./dist/logic.js";
+    // import 
 
-    const V = [
-      { id: 0, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 1, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 2, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 3, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 4, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 5, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 6, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 7, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 8, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 9, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 10, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 11, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 12, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 13, label: "", degree: 0, pos: { x: 0, y: 0 } },
-      { id: 14, label: "", degree: 0, pos: { x: 0, y: 0 } },
-    ];
-    const E = [
-      { source: 0, target: 1, degree: 0, label: "" },
-      { source: 0, target: 2, degree: 0, label: "" },
-      { source: 0, target: 3, degree: 0, label: "" },
-      { source: 0, target: 4, degree: 0, label: "" },
-      { source: 0, target: 5, degree: 0, label: "" },
-      { source: 0, target: 6, degree: 0, label: "" },
-      { source: 7, target: 1, degree: 0, label: "" },
-      { source: 7, target: 2, degree: 0, label: "" },
-      { source: 7, target: 3, degree: 0, label: "" },
-      { source: 7, target: 4, degree: 0, label: "" },
-      { source: 7, target: 5, degree: 0, label: "" },
-      { source: 7, target: 6, degree: 0, label: "" },
-      { source: 8, target: 1, degree: 0, label: "" },
-      { source: 8, target: 2, degree: 0, label: "" },
-      { source: 8, target: 3, degree: 0, label: "" },
-      { source: 8, target: 4, degree: 0, label: "" },
-      { source: 8, target: 5, degree: 0, label: "" },
-      { source: 8, target: 6, degree: 0, label: "" },
-      { source: 9, target: 1, degree: 0, label: "" },
-      { source: 9, target: 2, degree: 0, label: "" },
-      { source: 9, target: 3, degree: 0, label: "" },
-      { source: 9, target: 4, degree: 0, label: "" },
-      { source: 9, target: 10, degree: 0, label: "" },
-      { source: 9, target: 11, degree: 0, label: "" },
-      { source: 1, target: 5, degree: 0, label: "" },
-      { source: 2, target: 6, degree: 0, label: "" },
-    ];
+    // const V = [
+    //   { id: 0, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 1, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 2, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 3, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 4, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 5, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 6, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 7, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 8, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 9, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 10, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 11, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 12, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 13, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    //   { id: 14, label: "", degree: 0, pos: { x: 0, y: 0 } },
+    // ];
+    // const E = [
+    //   { source: 0, target: 1,  label: "" },
+    //   { source: 0, target: 2,  label: "" },
+    //   { source: 0, target: 3,  label: "" },
+    //   { source: 0, target: 4,  label: "" },
+    //   { source: 0, target: 5,  label: "" },
+    //   { source: 0, target: 6,  label: "" },
+    //   { source: 7, target: 1,  label: "" },
+    //   { source: 7, target: 2,  label: "" },
+    //   { source: 7, target: 3,  label: "" },
+    //   { source: 7, target: 4,  label: "" },
+    //   { source: 7, target: 5,  label: "" },
+    //   { source: 7, target: 6,  label: "" },
+    //   { source: 8, target: 1,  label: "" },
+    //   { source: 8, target: 2,  label: "" },
+    //   { source: 8, target: 3,  label: "" },
+    //   { source: 8, target: 4,  label: "" },
+    //   { source: 8, target: 5,  label: "" },
+    //   { source: 8, target: 6,  label: "" },
+    //   { source: 9, target: 1,  label: "" },
+    //   { source: 9, target: 2,  label: "" },
+    //   { source: 9, target: 3,  label: "" },
+    //   { source: 9, target: 4,  label: "" },
+    //   { source: 9, target: 10, label: "" },
+    //   { source: 9, target: 11, label: "" },
+    //   { source: 1, target: 5,  label: "" },
+    //   { source: 2, target: 6,  label: "" },
+    // ];
 
     //options(document.getElementById("options"));
-    document.getElementById("out").innerHTML = renderGraph(V, E);
+    //document.getElementById("out").innerHTML = renderGraph(V, E);
   </script>
 </body>
 </html>

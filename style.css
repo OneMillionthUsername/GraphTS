@@ -3,8 +3,8 @@ body {
 }
 
 #out svg {
-    display: block; 
-    width: 100vw; 
+    display: block;
+    width: 100vw;
     height: 100vh;
     font-size: large;
 }

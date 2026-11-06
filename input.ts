@@ -1,6 +1,8 @@
+import { createEdges, createVertices, Edge, Vertex } from "./graph.js";
 
+export type GraphConfig = { vertexCount: number; regularEdgeCount: number; vertexDegrees: number[] };
 
-export function drawInputs(container: HTMLElement) {
+export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) => void) {
     // create not adjacent checkbox
     const input_notAdjacent = document.createElement("input");
     input_notAdjacent.type = "checkbox";
@@ -10,6 +12,16 @@ export function drawInputs(container: HTMLElement) {
     const label_input_notAdjacent = document.createElement("label");
     label_input_notAdjacent.htmlFor = input_notAdjacent.id;
     label_input_notAdjacent.textContent = "Nicht adjazent";
+    // ---------------------------------------------------------
+    // create regulärer Graph
+    const input_regulaererGraph = document.createElement("input");
+    input_regulaererGraph.type = "checkbox";
+    input_regulaererGraph.id = "regularGraph";
+    input_regulaererGraph.name = "regularGraph_checkbox";
+
+    const label_input_regulaererGraph = document.createElement("label");
+    label_input_regulaererGraph.htmlFor = input_regulaererGraph.id;
+    label_input_regulaererGraph.textContent = "Regulärer Graph";
     // ---------------------------------------------------------
     // create vertext count 
     const input_vertexCount = document.createElement("input");
@@ -43,24 +55,53 @@ export function drawInputs(container: HTMLElement) {
     // TODO: in Schleife ausführen, je nachdem, wieviele Kanten existieren müssen?
     // aber nicht hier!
     container.append(input_notAdjacent, label_input_notAdjacent);
+    container.append(input_regulaererGraph, label_input_regulaererGraph);
     container.append(input_vertexCount, label_input_vertexCount);
-    container.append(input_vertexDegree, label_input_vertexDegree);
     container.append(input_buttonVertex);
     // ---------------------------------------------------------
     
     input_buttonVertex.addEventListener("click", () => {
         const fields = container.querySelectorAll('.vertex-row');
         const fieldsCount = container.querySelectorAll('.vertex-row').length;
+        const regularGraph = container.querySelector<HTMLInputElement>('#regularGraph');
+        const vertexCount = container.querySelector<HTMLInputElement>('#vertexInput');
+        const individualVertexValue = container.querySelectorAll<HTMLInputElement>('[name="vertex_degree"]');
+
+        if(!vertexCount || !regularGraph) return;
+
+        if(fieldsCount > 0)
+            fields.forEach(field => { field.remove(); });
         
-        // TODO: nach dem Löschen, bleiben die Labels stehen.
-        if(fieldsCount > 0) {
-                fields.forEach(field => { field.remove(); });
+        // erstelle individuelle Knoten oder den Input dafür, sonst den regulären Graphen.
+        // was wenn vertexInputs schon existiert und inhalt hat?
+        if (!regularGraph.checked && vertexCount.valueAsNumber > 0) {
+            if(individualVertexValue.length > 0) {
+                individualVertexValue.forEach(e => {
+                    // soll ich hier zuerst auf gültigkeit prüfen und erst dann befüllen?
+                    if(Number.isNaN(e.valueAsNumber)) return;
+                    else {
+                        const v: Vertex[] = createVertices(vertexCount.valueAsNumber, e.valueAsNumber);
+                        //const id = v.map(v => v.id).
+                    }
+                });
             }
-        createVertexInputsForDegree(input_vertexCount.valueAsNumber, container);
+            else
+            createIndividualVertexInputs(container, vertexCount.valueAsNumber);
+        }
+        else if(regularGraph.checked) {
+            const grad = vertexCount.valueAsNumber - 1;
+            const v: Vertex[] = createVertices(vertexCount.valueAsNumber, grad);
+            // need: checked => target != source, 
+            const e: Edge[] = createEdges(v);
+            //return { vertices: v, edges: e };
+        }
+        
+        //deleteGraph();
+        //onCreate(null);
     });
 }
 
-function createVertexInputsForDegree(count: number, container: HTMLElement) {
+function createIndividualVertexInputs(container: HTMLElement, count: number,) {
     for (let i = 0; i < count; i++) {
         const input_vertexCount = document.createElement("input");
         input_vertexCount.type = "number";
@@ -70,10 +111,11 @@ function createVertexInputsForDegree(count: number, container: HTMLElement) {
 
         const label_input_vertexCount = document.createElement("label");
         label_input_vertexCount.htmlFor = input_vertexCount.id;
-        label_input_vertexCount.textContent = "Knoten Nr: " + i;
+        label_input_vertexCount.textContent = "Grad für Knoten v" + i;
         const row = document.createElement("div");
         row.className = "vertex-row";
         row.append(input_vertexCount, label_input_vertexCount);
         container.append(row);
     }
 }
+

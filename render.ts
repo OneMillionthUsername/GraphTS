@@ -1,69 +1,19 @@
-import { getVertexSize, createGrid } from './coord_system.js';
-import { drawInputs } from './input.js';
+import { createGrid } from "./layout.js";
+import { createVertexNames, getDegree, Graph } from './graph.js'
 
 const font_size_degree = 20;
 const font_size_label = 40;
 
-type Position = {
-  x: number;
-  y: number;
-};
-
-type Vertex = {
-  id: number;
-  label: string;
-  degree: number;
-  pos: Position;
-};
-
-type Edge = {
-  source: number; // source vertex id
-  target: number; // target vertex id
-  degree: number;
-  label: string;
-};
-
-type Graph = {
-  vertices: Vertex[];
-  edges: Edge[];
-};
-
-// functions
-function createVertexNames(v: number): string {
-  return `v${v}`;
-}
-
-function getDegree(edges: Edge[], id: number): number {
-  let count = 0;
-  for (const edge of edges) {
-    if (edge.source === id) count++;
-    if (edge.target === id) count++;
-  }
-  return count;
-}
-// TODO: Funktion zum Vergleichen von Knoten schreiben
-
-function createVertices(count: number): string {
-  // hier werden die verschiedenen Knoteneinstellungen geschrieben. 
-  // Jeder Knoten hat seinen Grad und die Eigenschaft, ob er einen zweiten Knoten gleicht
-  // mögliche weitere Eigenschaften?
-  return "";
-}
-
-export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
-  const inputContainer = document.getElementById("options");
-  if (inputContainer) {
-    drawInputs(inputContainer);
-  }
+export function renderGraph(g: Graph, size = 1600 ): string {
   const radiusVertex = 30;
   const streuung = 125; // max. zufälliger Versatz in px, horizontal & vertikal
-  const grid = createGrid(V.length, size);
+  const grid = createGrid(g.vertices.length, size);
   const cellWidth = Math.floor(size/grid.cols);
   const cellHeight = Math.floor(size/grid.rows);
   //create the vertices
   //----------------------------
   // fill the vertices set with data
-  V.forEach((v, i) => {
+  g.vertices.forEach((v, i) => {
     const col = i % grid.cols;
     const row = Math.floor(i / grid.cols);
     //const winkel = (2 * Math.PI * i) / V.length;
@@ -74,10 +24,10 @@ export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
       y: row * cellHeight + (cellHeight / 2) + jitterY
     }
     v.label = createVertexNames(i);
-    v.degree = getDegree(E,v.id);
+    v.degree = getDegree(g.edges,v.id);
   });
 
-  const getVertexbyId = new Map(V.map(v => [v.id, v] as const));
+  const getVertexbyId = new Map(g.vertices.map(v => [v.id, v] as const));
 
   // liefert mit get den Winkel der Kante zurück (in rad).
   // const deg = new Map(V.map(v => [v.id, 0]));
@@ -88,14 +38,13 @@ export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
   //   deg.set(target, deg.get(target)! + 1);
   // }
 
-  const edgesSvg = E.map(edge => {
+  const edgesSvg = g.edges.map(edge => {
     const source = getVertexbyId.get(edge.source)!.pos;
     const target = getVertexbyId.get(edge.target)!.pos;
     return `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" stroke="#333" stroke-width="2" />`;
   }).join("\n");
 
-  // ich könnte hier einen Stringbuilder verwenden/erstellen
-  const nodesSvg = V.map(v => {
+  const nodesSvg = g.vertices.map(v => {
     const position = v.pos;
     //const winkel = deg.get(v.id)!;
     //const fill = winkel > 2 ? "#e6b0aa" : "#fff"; 
@@ -112,3 +61,4 @@ export function renderGraph(V: Vertex[], E: Edge[], size = 1600): string {
     ${nodesSvg}
     </svg>`;
 }
+
