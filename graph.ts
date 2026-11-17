@@ -1,4 +1,4 @@
-import type { GraphConfig } from "./input";
+import type { GraphConfig } from "./input.js";
 
 type Position = {
   x: number;
@@ -36,9 +36,16 @@ export function createVertices(count: number, degree: number): Vertex[] {
 export function createEdges(vertex: Vertex[]): Edge[] {
   // { source: 0, target: 1, label: "" }
   const edgeArray: Edge[] = [];
-  vertex.forEach(v => {
     
-  });
+  
+  const vertices = vertex.map(v => ({id: v.id, rest: v.degree }));
+
+  // Havel-Hakimi Algorithmus
+  while(true){
+    vertices.sort((a, b) => b.rest - a.rest);
+    if((vertices[0]?.rest ?? 0) === 0) break;
+    
+  }
   return edgeArray;
 }
 
