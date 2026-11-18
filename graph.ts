@@ -45,6 +45,16 @@ export function createEdges(vertex: Vertex[]): Edge[] {
     vertices.sort((a, b) => b.rest - a.rest);
     if((vertices[0]?.rest ?? 0) === 0) break;
     
+    const first = vertices[0];
+    if(first.rest > vertices.length - 1)
+      return [];
+    for (let i = 1; i <= first.rest; i++) {
+      if(vertices[i].rest === 0)
+        return [];
+      edgeArray.push({source: first.id, target: vertices[i].id, label: "" });
+      vertices[i].rest--;
+    }
+    first.rest = 0;
   }
   return edgeArray;
 }
