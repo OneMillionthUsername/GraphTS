@@ -16,16 +16,16 @@ if(out && options) {
 }
 
 
-const t1 = createVertices(5, 0);
-t1[0].degree = 1; t1[1].degree = 3; t1[2].degree = 2; t1[3].degree = 2;
-console.log("Test 1");
-console.log(createEdges(t1));
+// const t1 = createVertices(5, 0);
+// t1[0].degree = 1; t1[1].degree = 3; t1[2].degree = 2; t1[3].degree = 2;
+// console.log("Test 1");
+// console.log(createEdges(t1));
 
-console.log("Test 2");
-console.log(createEdges(createVertices(3, 0)));
+// console.log("Test 2");
+// console.log(createEdges(createVertices(3, 0)));
 
-console.log("Test 3");
-console.log(createEdges(createVertices(0, 0)));
+// console.log("Test 3");
+// console.log(createEdges(createVertices(0, 0)));
 
-console.log("Test 4");
-console.log(createEdges(createVertices(3, 1)));
+// console.log("Test 4");
+// console.log(createEdges(createVertices(3, 1)));

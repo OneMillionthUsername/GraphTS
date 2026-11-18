@@ -1,4 +1,4 @@
-import { createEdges, createVertices, Edge, Vertex } from "./graph.js";
+import { Edge, Vertex } from "./graph.js";
 
 export type GraphConfig = { vertexCount: number; regularEdgeCount: number; vertexDegrees: number[] };
 
@@ -80,7 +80,7 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
                     // soll ich hier zuerst auf gültigkeit prüfen und erst dann befüllen?
                     if(Number.isNaN(e.valueAsNumber)) return;
                     else {
-                        const v: Vertex[] = createVertices(vertexCount.valueAsNumber, e.valueAsNumber);
+                        //const v: Vertex[] = createVertices(vertexCount.valueAsNumber, e.valueAsNumber);
                         //const id = v.map(v => v.id).
                     }
                 });
@@ -90,14 +90,12 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
         }
         else if(regularGraph.checked) {
             const grad = vertexCount.valueAsNumber - 1;
-            const v: Vertex[] = createVertices(vertexCount.valueAsNumber, grad);
-            // need: checked => target != source, 
-            const e: Edge[] = createEdges(v);
-            //return { vertices: v, edges: e };
+            onCreate({
+                vertexCount: vertexCount.valueAsNumber,
+                regularEdgeCount: grad,
+                vertexDegrees: []
+            });
         }
-        
-        //deleteGraph();
-        //onCreate(null);
     });
 }
 

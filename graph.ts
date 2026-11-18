@@ -33,6 +33,8 @@ export function createVertices(count: number, degree: number): Vertex[] {
   return vertexArray;
 }
 
+// TODO: "nicht möglich" von "keine Kanten" unterscheiden (beides liefert []),
+//       damit das Formular eine Meldung anzeigen kann.
 export function createEdges(vertex: Vertex[]): Edge[] {
   // { source: 0, target: 1, label: "" }
   const edgeArray: Edge[] = [];
