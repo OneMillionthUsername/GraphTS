@@ -23,6 +23,7 @@ export type Graph = {
   edges: Edge[];
 };
 
+// Knoten erstellen
 export function createVertices(count: number, degree: number): Vertex[] {
   // { id: 0, label: "", degree: 0, pos: { x: 0, y: 0 } }
   const vertexArray: Vertex[] = [];
@@ -38,7 +39,6 @@ export function createVertices(count: number, degree: number): Vertex[] {
 export function createEdges(vertex: Vertex[]): Edge[] {
   // { source: 0, target: 1, label: "" }
   const edgeArray: Edge[] = [];
-    
   
   const vertices = vertex.map(v => ({id: v.id, rest: v.degree }));
 

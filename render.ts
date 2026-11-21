@@ -27,7 +27,7 @@ export function renderGraph(g: Graph, size = 1600 ): string {
     v.degree = getDegree(g.edges,v.id);
   });
 
-  const getVertexbyId = new Map(g.vertices.map(v => [v.id, v] as const));
+  const VertexIdMap = new Map(g.vertices.map(v => [v.id, v] as const));
 
   // liefert mit get den Winkel der Kante zurück (in rad).
   // const deg = new Map(V.map(v => [v.id, 0]));
@@ -38,23 +38,25 @@ export function renderGraph(g: Graph, size = 1600 ): string {
   //   deg.set(target, deg.get(target)! + 1);
   // }
 
-  const edgesSvg = g.edges.map(edge => {
-    const source = getVertexbyId.get(edge.source)!.pos;
-    const target = getVertexbyId.get(edge.target)!.pos;
-    return `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" stroke="#333" stroke-width="2" />`;
-  }).join("\n");
+  const edgesSvg = g.edges.map(
+    edge => {
+      const source = VertexIdMap.get(edge.source)!.pos;
+      const target = VertexIdMap.get(edge.target)!.pos;
+      return `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" stroke="#333" stroke-width="2" />`;
+    }).join("\n");
 
-  const nodesSvg = g.vertices.map(v => {
-    const position = v.pos;
-    //const winkel = deg.get(v.id)!;
-    //const fill = winkel > 2 ? "#e6b0aa" : "#fff"; 
-    const fill = "#fff";
-    return `<g>
-            <circle cx="${position.x}" cy="${position.y}" r="${radiusVertex}" fill="${fill}" stroke="#333" stroke-width="2" />
-            <text x="${position.x}" y="${position.y}" text-anchor="middle" dominant-baseline="central" font-size="${font_size_label}">${v.label}</text>
-            <text x="${position.x}" y="${position.y + radiusVertex + 14}" text-anchor="middle" font-size="${font_size_degree}" fill="#666">d=${v.degree}</text>
-            </g>`;
-  }).join("\n");
+  const nodesSvg = g.vertices.map(
+    v => {
+      const position = v.pos;
+      //const winkel = deg.get(v.id)!;
+      //const fill = winkel > 2 ? "#e6b0aa" : "#fff"; 
+      const fill = "#fff";
+      return `<g>
+              <circle cx="${position.x}" cy="${position.y}" r="${radiusVertex}" fill="${fill}" stroke="#333" stroke-width="2" />
+              <text x="${position.x}" y="${position.y}" text-anchor="middle" dominant-baseline="central" font-size="${font_size_label}">${v.label}</text>
+              <text x="${position.x}" y="${position.y + radiusVertex + 14}" text-anchor="middle" font-size="${font_size_degree}" fill="#666">d=${v.degree}</text>
+              </g>`;
+    }).join("\n");
 
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
     ${edgesSvg}

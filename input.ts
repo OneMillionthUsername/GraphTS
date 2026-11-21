@@ -1,5 +1,3 @@
-import { Edge, Vertex } from "./graph.js";
-
 export type GraphConfig = { vertexCount: number; regularEdgeCount: number; vertexDegrees: number[] };
 
 export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) => void) {
@@ -11,7 +9,7 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
 
     const label_input_notAdjacent = document.createElement("label");
     label_input_notAdjacent.htmlFor = input_notAdjacent.id;
-    label_input_notAdjacent.textContent = "Nicht adjazent";
+    label_input_notAdjacent.textContent = "Adjazent";
     // ---------------------------------------------------------
     // create regulärer Graph
     const input_regulaererGraph = document.createElement("input");
@@ -79,9 +77,18 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
                 individualVertexValue.forEach(e => {
                     // soll ich hier zuerst auf gültigkeit prüfen und erst dann befüllen?
                     if(Number.isNaN(e.valueAsNumber)) return;
+                    // jedem Knoten den Grad zuweisen
+                    // VertexIdMap
+                    // Ich brauche eine neue Datei als Verbindung zwischen input und render für
+                    // die Logik wie die Knoten mit Kanten befüllt werden!
+                    // ich muss mir von dort die Knoten holen und auf diese den Knotengrad anwenden,
+                    // den ich (hier) aus dem Input auslese.
                     else {
-                        //const v: Vertex[] = createVertices(vertexCount.valueAsNumber, e.valueAsNumber);
-                        //const id = v.map(v => v.id).
+                        // TODO: hier die speziellen (nicht regulären) Graphen bauen
+
+                        // onCreate({
+                        //     vertexCount: vertexCount.valueAsNumber,
+                        // })
                     }
                 });
             }
@@ -89,10 +96,9 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
             createIndividualVertexInputs(container, vertexCount.valueAsNumber);
         }
         else if(regularGraph.checked) {
-            const grad = vertexCount.valueAsNumber - 1;
             onCreate({
                 vertexCount: vertexCount.valueAsNumber,
-                regularEdgeCount: grad,
+                regularEdgeCount: vertexCount.valueAsNumber - 1,
                 vertexDegrees: []
             });
         }
@@ -101,18 +107,18 @@ export function drawInputs(container: HTMLElement, onCreate: (cfg: GraphConfig) 
 
 function createIndividualVertexInputs(container: HTMLElement, count: number,) {
     for (let i = 0; i < count; i++) {
-        const input_vertexCount = document.createElement("input");
-        input_vertexCount.type = "number";
-        input_vertexCount.name = "vertex_degree";
-        input_vertexCount.defaultValue = "0";
-        input_vertexCount.id = "vertexCount_" + i;
+        const input_vertexIndividual = document.createElement("input");
+        input_vertexIndividual.type = "number";
+        input_vertexIndividual.name = "vertex_degree";
+        input_vertexIndividual.defaultValue = "0";
+        input_vertexIndividual.id = "vertex_degree_" + i;
 
-        const label_input_vertexCount = document.createElement("label");
-        label_input_vertexCount.htmlFor = input_vertexCount.id;
-        label_input_vertexCount.textContent = "Grad für Knoten v" + i;
+        const label_input_vertexIndividual = document.createElement("label");
+        label_input_vertexIndividual.htmlFor = input_vertexIndividual.id;
+        label_input_vertexIndividual.textContent = "Grad für Knoten v" + i;
         const row = document.createElement("div");
         row.className = "vertex-row";
-        row.append(input_vertexCount, label_input_vertexCount);
+        row.append(input_vertexIndividual, label_input_vertexIndividual);
         container.append(row);
     }
 }

@@ -2,7 +2,7 @@ import { drawInputs } from './input.js'
 import  {} from './render.js'
 import { } from './layout.js'
 import { renderGraph } from './render.js'
-import { buildGraph, createVertices, createEdges } from './graph.js';
+import { buildGraph } from './graph.js';
 
 
 const out = document.getElementById('out') as HTMLElement;
